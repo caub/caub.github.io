@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>{{ page.title }}</title>
+ 
+        <link rel="stylesheet" href="/asset/main.css" />
+        <link rel="stylesheet" href="/asset/highlight.css" />
+        <link rel="alternate" type="application/rss+xml" href="/rss.xml" />
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-27300026-1']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+    </head>
+    <body>
+        <header>
+            <h1><a href="/">blog</a> <a href="/aboutMe">about me</a> <a href="https://github.com/c-ab" target="_blank">projects</a> </h1>
+        </header>
+        <section>
+            {{ content }}
+        </section>
+    </body>
+</html>
