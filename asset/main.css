@@ -67,6 +67,7 @@ p {
 
 dd {
     text-align: justify;
+    font-size: 16px;
     line-height: 1.5em;
 }
 dt {
