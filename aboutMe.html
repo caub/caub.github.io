@@ -9,49 +9,49 @@ title: About Me
 	</p>
 
 	<h2>Experiences</h2>
-		<dl>
-			<dt><time datetime="2012" pubdate>2012</time>Engineer for alcotra project “<a href="http://mymed.fr">myMed</a>” in <a href="http://www.inria.fr/equipes/lognet">INRIA Sophia-Antipolis LogNet Team</a>
-			<dd style="line-height: initial;margin-bottom: 10px;">A “social web apps” project where data are spread in a large cluster of light servers used in the administrations and universities computers<br> &rarr; <a href="http://c-ab.github.com/2012/12/03/KV-indexing.html">minimal query language</a> on top of <a href="http://cassandra.apache.org/">Cassandra</a> NoSQL database<br> &rarr; light <em>content-based pubsub</em> layer on top of HTTP.
+	<dl>
+		<dt><time datetime="2012" pubdate>2012</time>Engineer for alcotra project “<a href="http://mymed.fr">myMed</a>” in <a href="http://www.inria.fr/equipes/lognet">INRIA Sophia-Antipolis LogNet Team</a>
+		<dd>A “social web apps” project involving University of Torino. The challenge was to cluster 40 computers across the two parties and several distant places in the department (St Martin de vésubie, Menton,...). Each node exposes a classic static server (web applications), and a backend server for accessing database (NoSQL <a href="http://cassandra.apache.org/">Cassandra</a>). I have worked on both parts, we made <a href="http://c-ab.github.com/2012/12/03/KV-indexing.html">minimal query language</a> that can be used on key-value stores. I also started a more interactive content-based pubsub over HTTP (websockets, or by default in-database notifications) to replace current mail alerts. More investigations dealt with the load balancing and optimization of requests (geographical or latencies-based)<br><br>
 
-			<dt><time datetime="2011" pubdate>2011</time>Engineer for ADT project “SensAS” in <a href="http://www.inria.fr/equipes/madynes">INRIA Nancy Madynes Team</a>
-			<dd style="line-height: initial;margin-bottom: 10px;">Network management methods in ipv6 sensor networks (programmed with <a href="http://www.contiki-os.org/">Contiki OS</a>)<br> &rarr; browser extension (Chrome) for snmp:// and coap:// uri schemes (<a href="http://auburtin.github.com/coap_slides">coap</a> is the equivalent of HTTP in sensor networks)<br> &rarr; <em>piggybacking</em> implementation (automatic diffusion of pending management data through ipv6 hop-by-hop headers).
+		<dt><time datetime="2011" pubdate>2011</time>Engineer for ADT project “<a href="http://sensas.gforge.inria.fr">Sensas</a>” in <a href="http://www.inria.fr/equipes/madynes">INRIA Nancy Madynes Team</a>
+		<dd>In the SensMgt group, we focused on sensor networks management using a widespread OS <a href="http://www.contiki-os.org/">Contiki</a>, and its network simulator Cooja. We worked on porting a snmp server implementation to SensLab sensors. I made a browser-based (Firefox) network manager for <em>snmp://</em> uri scheme, similarly to Copper extension (<a href="http://auburtin.github.com/coap_slides">coap</a> is the equivalent of HTTP in sensor networks), and started to port them on Chrome (UDP handling in extensions is far easier).<br>Our next task was a smart <em>piggybacking</em> for propagating some pending management data inside ipv6 hop-by-hop headers (<a href="http://sensas.gforge.inria.fr/wiki/lib/exe/fetch.php?media=meetings:sensmgt_17012013.pdf">full report</a>).<br><br>
 
-			<dt><time datetime="2010" pubdate>2010</time>Engineer with <a href="http://www.fireflies-rtls.com/">Fireflies-rtls</a>' grant in <a href="http://www.inria.fr/equipes/madynes">INRIA Nancy Madynes Team</a>
-			<dd style="line-height: initial;margin-bottom: 10px;">Geolocation protocols, using distance to anchors propagation (<a href="https://docs.google.com/open?id=0BzuYmApZaTFBTmZVVlJsU2FhTmc">CFIP 2011</a> submission)<br> &rarr; developed a SNMP proxy (<a href="http://pysnmp.sourceforge.net/">PySNMP</a> extension) for managing and caching sensors data.
+		<dt><time datetime="2010" pubdate>2010</time>Engineer with <a href="http://www.fireflies-rtls.com/">Fireflies-rtls</a> grant in <a href="http://www.inria.fr/equipes/madynes">INRIA Nancy Madynes Team</a>
+		<dd>We implemented geopositioning and asset management applications based on TI SoC and their ZigBee stack. Other related work inluded a distance-to-anchors propagation algorithm (<a href="https://docs.google.com/open?id=0BzuYmApZaTFBTmZVVlJsU2FhTmc">CFIP 2011</a> submission), a SNMP proxy (<a href="http://pysnmp.sourceforge.net/">PySNMP</a> extension) for managing and caching sensors data, a Python serial interactive shell for sending commands..<br><br>
 
-			<dt><time datetime="2009-09-01" pubdate>2009 (03-09)</time>Graduate Internship in <a href="http://www.inria.fr/equipes/madynes">INRIA Nancy Madynes Team</a>
-			<dd style="line-height: initial;margin-bottom: 10px;">Geolocation system through WiFi signals using <a href="http://sourceforge.net/projects/placelab/">PlaceLab</a> and a fingerprinting method (<a href="https://docs.google.com/open?id=0BzuYmApZaTFBX1FVd2FQRTl4QUk">presentation</a>,  <a href="https://docs.google.com/open?id=0BzuYmApZaTFBSnpHbENqTWtmNFE">state of the art</a>).
-		</dl>
+		<dt><time datetime="2009-09-01" pubdate>2009 (03-09)</time>Graduate Internship in <a href="http://www.inria.fr/equipes/madynes">INRIA Nancy Madynes Team</a>
+		<dd>Geolocation system in WiFi environment using <a href="http://sourceforge.net/projects/placelab/">PlaceLab</a> with different strategies least squares multilateration, signal fingerprinting.. (<a href="https://docs.google.com/open?id=0BzuYmApZaTFBX1FVd2FQRTl4QUk">presentation</a>,  <a href="https://docs.google.com/open?id=0BzuYmApZaTFBSnpHbENqTWtmNFE">state of the art</a>).<br><br>
+	</dl>
 
 	<h2>References</h2>
-		<dl>
-			<dt><a href="mailto:milo.casagrande@inria.fr">Milo Casagrande</a> (INRIA - Sophia Antipolis)
-			<dt><a href="mailto:jean-michel.nicolai@fireflies-rtls.com">Jean-Michel Nicolai</a> (Fireflies-rtls)
-			<dt><a href="mailto:laurent.ciarletta@inria.fr">Laurent Ciarletta</a> (INRIA - Nancy)
-		</dl>
+	<dl>
+		<dt><a href="mailto:milo.casagrande@inria.fr">Milo Casagrande</a> (INRIA - Sophia Antipolis)
+		<dt><a href="mailto:jean-michel.nicolai@fireflies-rtls.com">Jean-Michel Nicolai</a> (Fireflies-rtls)
+		<dt><a href="mailto:laurent.ciarletta@inria.fr">Laurent Ciarletta</a> (INRIA - Nancy)
+	</dl>
 
 
 	<h2>Skills</h2>
-		<dl>
-			<dt>Object-oriented and imperative languages:
-			<dd>Java, C, PHP, Javascript, Python
-			<dt>Functional languages:
-			<dd>Haskell, Erlang
-			<dt>Databases:
-			<dd>MySQL, some nosql DBs, and like to play with Graph DBs (neo4j)
-			<dt>Operating Systems:
-			<dd>development under Linux, Windows, Android
-		</dl>
+	<dl>
+		<dt>Object-oriented and imperative languages:
+		<dd>Java, C, PHP, Javascript, Python
+		<dt>Functional languages:
+		<dd>Haskell, Erlang
+		<dt>Databases:
+		<dd>MySQL, some nosql DBs, and like to play with Graph DBs (neo4j)
+		<dt>Operating Systems:
+		<dd>development under Linux, Windows, Android
+	</dl>
 
 	<h2>Education</h2>
-		<dl>
-			<dt><time datetime="2006-2009" pubdate>2006-2009</time><a href="http://www.mines-nancy.univ-lorraine.fr/">École Nationale Supérieure des Mines de Nancy, France</a>
-			<dt><time datetime="2003-2005" pubdate>2003-2005</time><a href="http://www.civfrance.com">Classes Préparatoires, CIV - Lycée Masséna, France</a>
-			<dt><time datetime="2003" pubdate>2003</time><a href=""></a>Baccalauréat Scientifique, Lycée Audiberti, Antibes, France</a>
-		</dl>
+	<dl>
+		<dt><time datetime="2006-2009" pubdate>2006-2009</time><a href="http://www.mines-nancy.univ-lorraine.fr/">École Nationale Supérieure des Mines de Nancy, France</a>
+		<dt><time datetime="2003-2005" pubdate>2003-2005</time><a href="http://www.civfrance.com">Classes Préparatoires, CIV - Lycée Masséna, France</a>
+		<dt><time datetime="2003" pubdate>2003</time><a href=""></a>Baccalauréat Scientifique, Lycée Audiberti, Antibes, France</a>
+	</dl>
 
 	<h2>Hobbies</h2>
-		<dl>
-			<dt>Sailing addict (<a href="http://www.ffvoile.net/ffv/sportif/ClmtCoureurFiche.asp?clid=0344498C">dinghy</a>), and nature sports, bike, climbing…  
+	<dl>
+		<dt>Sailing (<a href="http://www.ffvoile.net/ffv/sportif/ClmtCoureurFiche.asp?clid=0344498C">dinghy</a>), and nature sports, bike, climbing…  
 
 </section>
