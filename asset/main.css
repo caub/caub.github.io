@@ -67,6 +67,10 @@ p {
 
 dd {
     text-align: justify;
+    line-height: 1.5em;
+}
+dt {
+    text-align: left;
 }
 
 ul {
