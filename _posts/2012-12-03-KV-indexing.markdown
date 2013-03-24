@@ -53,7 +53,7 @@ and also composition between name-value pairs with '&':
 
 ... but we would end up with 2^k insertions (k= sum of metadata values size, 12 here), so we limit composite length with min(**3**, k). (**3** is arbitrary here, this parameter should just be a small number)
 
-Thus, we don't exceed *Sum(i=0..min(3,k) of Binomial Coefficient(i, k)) insertions*, a more reasonnable number. Actually there are high chances that rows like **theme=nature** or **title=the** already exist.
+Thus, we don't exceed *Sum(i=0..min(3,k) of Binomial Coefficient(i, k)) insertions*, a more reasonnable number. Actually there are high chances that rows like **theme=nature** or **title=the** already exist in database.
 
 How we search it
 -----------
@@ -83,7 +83,7 @@ In summary
 
 This method of indexation has the following characterictics:
 
- * Limitated (no search patterns)  
+ * Restricted (no search patterns)  
    * However we could expand searched rows with patterns like 'blu%' to cover ['blua', 'blub', 'bluc',...], (methods known as reverse regex). Or, more like Lucene, we could break large words into smaller one that we index also.
  * Fast: O(1) when the index exists (under 3 'AND')
  * Easy to use and manage, metadata are stored with the content to remove all indexes, if necessary
