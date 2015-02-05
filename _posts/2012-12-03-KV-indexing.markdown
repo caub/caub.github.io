@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Indexing data with key-value stores
+title: Indexing data on key-value stores
 excerpt: Some thoughts on indexing data with simple hashtables.
 ---
 
@@ -53,7 +53,7 @@ and also composition between name-value pairs with '&':
 
 ... but we would end up with 2^k insertions (k= sum of metadata values size, 12 here), so we limit composite length with min(**3**, k). (**3** is arbitrary here, this parameter should just be a small number)
 
-Thus, we don't exceed *Sum(i=0..min(3,k) of Binomial Coefficient(i, k)) insertions*, a more reasonnable number. Actually there are high chances that rows like **theme=nature** or **title=the** already exist in database.
+Thus, we don't exceed `Sum(i=0..min(3,k) of Binomial Coefficient(i, k)) insertions`, a more reasonnable number. Actually there are high chances that rows like **theme=nature** or **title=the** already exist in database and get reused for other documents.
 
 How we search it
 -----------
@@ -64,9 +64,9 @@ How we search it
 {% endhighlight %}
 will be a query matching our example above, thanks to the row: 'theme=nature&title=brown&title=quick'.
 
-As mentionned, for larger composites exceeding 3 elements, the first 3 elements will be queried directly against the database, the next 3 also, and so on.. then the intersection is done between the result sets document ids.
+As mentionned, for larger composites exceeding 3 elements, the first 3 elements will be queried directly against the database, the next 3 also, and so on.. then the intersection is done between the result sets containing document ids.
 
-You can also form 'OR' queries:
+You can also form 'OR' queries, that perform parallel queries and merge results in the same map:
 
 {% highlight javascript %}
 [
@@ -84,47 +84,21 @@ In summary
 This method of indexation has the following characterictics:
 
  * Restricted (no search patterns)  
-   * However we could expand searched rows with patterns like 'blu%' to cover ['blua', 'blub', 'bluc',...], (methods known as reverse regex). Or, more like Lucene, we could break large words into smaller one that we index also.
+   * However we could expand searched rows with range (see appendix on numbers) or patterns like 'blu%' to cover ['blua', 'blub', 'bluc',...], (methods known as reverse regex). We could break large words into smaller one that we index also, semantic parsing like stemming, de-conjugate verbs, eliminate plurals... similarly to Lucene text-processing.
  * Fast: O(1) when the index exists (under 3 'AND')
- * Easy to use and manage, metadata are stored with the content to remove all indexes, if necessary
- * Other notes: the title sentence of the example was indexed with single words. To index larger specific expressions such as "brown fox", it's often preferable to post-filter out results like "brown cat and gray fox" rather than trying to index ordered combinations of title terms...
-
+ * Easy to use and manage, metadata are stored with the content to remove,update or reinsert all indexes, if necessary
+ * Other notes:
+   * The title sentence of the example was indexed with single words. To index larger specific expressions such as "brown fox", it's often preferable to post-filter out results rather than trying to index ordered combinations of title terms...
+   * We can optionally define a handler name in the search query, and in the insert query, that generates indexes differently, for example *text* (by default, does indexation like we saw, by splitting in words), *binary* (no indexation on the specified binary field), *range1|range2|range3|range4...* (range handlers, see below).
 Appendix on numbers
 -------
 
-The problem with numbers is we want to search over a range, what can't give a raw hashtable.
+The problem with numbers is we often want to search them over a range.
 
-A solution could be to work with a sorted-hashtable. But, else without it, you could try to index as key only the integer part, then you would fetch a set of keys. This solution becomes quickly messy.
+A solution could be to work with a sorted-hashtable, it would homever serve only for one dimension at a time. One could also try to index as key only the integer part, then you would fetch a set of keys for the first decimals, etc... This solution is a bit messy but is closer to the goal.
 
-A probably clean but complex way to deal with numbers is to use a hexadecimal-partitionning:
-Let's take (int16) integers, we equally map this set to hexadecimals, (thus 8&rarr;`[0,2^13[`, 9&rarr;`[2^13,2^14[,` and so on), we iterate for the next resolution, ( 80&rarr;`[0,2^9[`, ... 8f&rarr;`[15*2^9,2^13[`, ...).
-The partitioning is infinite, but we don't need to access to very low resolutions. So for storing a number, you will store its first k mappings, and to retrieve numbers between m and n, you will search the mappings near between them with range resolution close to (n-m)/2 or less.
+One idea with numbers ranges is to use a partitionning, let's consider the set of Int16 numbers [-32768, 32767]. They will be partitionned given a particular 'resolution', for example resolution 1 deals with sub-ranges of size 10000, -4 maps [-32768,-30000[, -3 maps [-30000, -20000[... Resolution 2 have ranges of 1000, -33 maps [-32768,-32000[, -32 maps [-32000, -31000[
+Indexing 1337 with resolution 3 gives 3 indexes, 0, 01 and 013.
+Searching the range [1960, 2015] with resolution 3 gives the indexes 019 and 020 that covers [1900,2100[, with reolution 4 gives the indexes [0196,0197,0198,0199,0200,0210] covering [1960, 2020]. A post-filtering refines the borders of the search interval.
 
-Example of a range `[500, 750]`:  
-the gap of 250 needs a resolution of less than 512=2^9  
-thus the 8 sets `[80f,810,811,...,817]` (`[480,768]`) fit well as a search
-
-The same way, [GeoCells](http://code.google.com/p/geomodel/source/browse/trunk/geo/geocell.py) enables to store 2D geographic positions, by splitting the globe surface in 16 areas and so on..
-
-As a short example:
-{% highlight javascript %}
-[
-  {'label':['hello','world'], 'position':['c']},
-  {'label':['hello','world'], 'position':['ca']},
-  {'label':['hello','world'], 'position':['cab']},
-  {'label':['hello','world'], 'position':['cab2']},
-  {'label':['hello','world'], 'position':['cab2d']},
-  {'label':['hello','world'], 'position':['cab2d7']},
-  // .. matches position (43.3, 7) as deep as you want resolution accuracy
-]
-{% endhighlight %}
-
-For searching in the certain area, say [(43, 7), (44, 8.8)], it comes down to find a best resolution and the cells that cover this area:
-
-{% highlight javascript %}
-[
-  {'position':['cab2']}, {'position':['cab3']}, {'position':['cab6']},
-  {'position':['cab8']}, {'position':['cab9']}, {'position':['cabc']},
-  // covers the area between latitudes 43 and 44, and longitudes 7 and 8.8
-]
-{% endhighlight %}
+For 2 or more range variables (2D for example), we can continue to apply this method for each one.
