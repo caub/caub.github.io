@@ -90,6 +90,7 @@ This method of indexation has the following characterictics:
  * Other notes:
    * The title sentence of the example was indexed with single words. To index larger specific expressions such as "brown fox", it's often preferable to post-filter out results rather than trying to index ordered combinations of title terms...
    * We can optionally define a handler name in the search query, and in the insert query, that generates indexes differently, for example *text* (by default, does indexation like we saw, by splitting in words), *binary* (no indexation on the specified binary field), *range1|range2|range3|range4...* (range handlers, see below).
+
 Appendix on numbers
 -------
 
