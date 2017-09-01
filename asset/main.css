@@ -29,7 +29,17 @@ main {
 
 .links a {
 	padding: 6px;
-	margin: 0 1em;
+	margin: .5em 1em;
+	text-decoration: none;
+}
+
+@media (max-width: 600px) {
+	.links {
+		flex-direction: column;
+	}
+	main {
+		margin-top: 4em;
+	}
 }
 
 section {
