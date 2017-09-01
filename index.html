@@ -12,7 +12,64 @@ title: Cyril Auburtin
 <section class="r links">
 	<a href="https://github.com/caub">Github</a>
 	<a href="/misc">Misc</a>
-	<a href="https://gist.github.com/caub">Gist</a>
+	<a href="https://gist.github.com/caub/da489a286b0098d0fcd799b66a252196">Gists</a>
 	<a href="http://cauburtin.blogspot.fr">Blog</a>
 	<a href="https://stackoverflow.com/users/3183756" title="Stack Overflow">SO</a>
 </section>
+
+<script>
+
+document.addEventListener('pointerdown', rippleHandler);
+
+function rippleHandler(e) {
+	const up = e => {
+		ripple(e);
+		document.removeEventListener('pointerup', up);
+	}
+	document.addEventListener('pointerup', up);
+	setTimeout(() => {
+		document.removeEventListener('pointerup', up);
+	}, 300);
+}
+
+function ripple(e) {
+	const span = document.createElement('span');
+	span.className = 'ripple';
+	document.body.appendChild(span);
+
+	const radius = Math.floor(80 + 120*Math.random());
+	// document.body.style.setProperty('--ripple-radius', radius);
+
+	const duration = Math.floor(750 + 500*Math.random());
+
+	Object.assign(span.style, {
+		left: e.pageX - radius + 'px',
+		top: e.pageY - radius + 'px',
+		width: radius * 2 + 'px',
+		height: radius * 2 + 'px',
+		backgroundImage: `radial-gradient(circle at center, hsla(${40*Math.random()+200}, 100%, 50%, .25), rgba(255,255,255,0) 80%)`
+	});
+	const animation = span.animate([
+		{transform: 'scale(0)'},
+		{transform: 'scale(1)'},
+	], {
+		duration: duration,
+		easing: 'cubic-bezier(.22,.67,.52,.92)',
+		fill: 'forwards',
+	});
+
+	animation.onfinish = () => {
+		const opacity = span.animate([
+			{opacity: 0.66},
+			{opacity: 0},
+		], {
+			duration: duration * 2,
+			fill: 'forwards',
+		});
+		opacity.onfinish = () => {
+			span.remove();
+		};
+	};
+}
+
+</script>

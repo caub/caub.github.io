@@ -4,6 +4,8 @@ body  {
 	max-width: 1100px;
 	font-size: 120%;
 	line-height: 1.4em;
+	background: rgba(240,240,240,.6);
+	overflow: hidden;
 }
 *, ::after, ::before {
 	box-sizing: border-box;
@@ -14,7 +16,7 @@ h1 {
 	font-weight: normal;
 }
 main {
-	margin-top: 6em;
+	margin-top: 7em;
 }
 .r {
 	display: flex;
@@ -32,4 +34,15 @@ main {
 
 section {
 	margin: 2em 1em;
+}
+
+.ripple {
+	border-radius: 50%;
+	position: absolute;
+/*	width: calc(2px*var(--ripple-radius));
+	height: calc(2px*var(--ripple-radius));*/
+	display: inline-block;
+	opacity: 0.66;
+	user-select: none;
+	pointer-events: none;
 }
