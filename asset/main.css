@@ -19,8 +19,8 @@ figure {
 }
 figure img {
 	filter: grayscale(.3);
-	clip-path: ellipse(45% 50% at 55% 50%);
-	margin-left: -10px;
+	clip-path: ellipse(44% 50% at 44% 50%);
+	margin-left: 16px;
 }
 svg.name {
 	width: 150px;
