@@ -1,3 +1,7 @@
+const circle1 = document.getElementById('circle1');
+const circle2 = document.getElementById('circle2');
+const connector = document.getElementById('connector');
+
 requestAnimationFrame(loop);
 
 function loop(t) {
@@ -20,14 +24,14 @@ function metaball(radius1, radius2, center1, center2, handleSize = 2.4, v = 0.5)
 	// This is just a quick hack to give a sense of the effect
 	radius1 -= d > delta ? (d - delta) / 8 : 0;
 	circle1.setAttribute("r", radius1)
-	
+
 	const maxDist = radius1 + radius2 * 2.5;
 	let u1, u2;
 
 	if (radius1 === 0 || radius2 === 0 || d > maxDist || d <= Math.abs(radius1 - radius2)) {
 		return '';
 	}
-	
+
 	if (d < radius1 + radius2) {
 		u1 = Math.acos(
 			(radius1 * radius1 + d * d - radius2 * radius2) / (2 * radius1 * d),
@@ -118,7 +122,7 @@ function getVector([cx, cy], a, r) {
 
 document.addEventListener('pointerdown', rippleHandler);
 
-function rippleHandler(e) {
+function rippleHandler() {
 	const up = e => {
 		ripple(e);
 		document.removeEventListener('pointerup', up);
@@ -134,35 +138,35 @@ function ripple(e) {
 	span.className = 'ripple';
 	document.body.appendChild(span);
 
-	const radius = Math.floor(80 + 120*Math.random());
+	const radius = Math.floor(80 + 120 * Math.random());
 	// document.body.style.setProperty('--ripple-radius', radius);
 
-	const duration = Math.floor(750 + 500*Math.random());
+	const duration = Math.floor(750 + 500 * Math.random());
 
 	Object.assign(span.style, {
 		left: e.pageX - radius + 'px',
 		top: e.pageY - radius + 'px',
 		width: radius * 2 + 'px',
 		height: radius * 2 + 'px',
-		backgroundImage: `radial-gradient(circle at center, hsla(${40*Math.random()+200}, 100%, 50%, .25), rgba(255,255,255,0) 80%)`
+		backgroundImage: `radial-gradient(circle at center, hsla(${20 + 40 * Math.random()}, 100%, 50%, .25), rgba(255,255,255,0) 80%)`
 	});
 	const animation = span.animate([
-		{transform: 'scale(0)'},
-		{transform: 'scale(1)'},
+		{ transform: 'scale(0)' },
+		{ transform: 'scale(1)' },
 	], {
-		duration: duration,
-		easing: 'cubic-bezier(.22,.67,.52,.92)',
-		fill: 'forwards',
-	});
+			duration: duration,
+			easing: 'cubic-bezier(.22,.67,.52,.92)',
+			fill: 'forwards',
+		});
 
 	animation.onfinish = () => {
 		const opacity = span.animate([
-			{opacity: 0.66},
-			{opacity: 0},
+			{ opacity: 0.66 },
+			{ opacity: 0 },
 		], {
-			duration: duration * 2,
-			fill: 'forwards',
-		});
+				duration: duration * 2,
+				fill: 'forwards',
+			});
 		opacity.onfinish = () => {
 			span.remove();
 		};
