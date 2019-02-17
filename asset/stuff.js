@@ -120,25 +120,14 @@ function getVector([cx, cy], a, r) {
 }
 
 
-document.addEventListener('pointerdown', rippleHandler);
-
-function rippleHandler() {
-	const up = e => {
-		ripple(e);
-		document.removeEventListener('pointerup', up);
-	}
-	document.addEventListener('pointerup', up);
-	setTimeout(() => {
-		document.removeEventListener('pointerup', up);
-	}, 300);
-}
+connector.addEventListener('pointerdown', ripple);
 
 function ripple(e) {
 	const span = document.createElement('span');
 	span.className = 'ripple';
 	document.body.appendChild(span);
 
-	const radius = Math.floor(80 + 120 * Math.random());
+	const radius = Math.floor(40 + 60 * Math.random());
 	// document.body.style.setProperty('--ripple-radius', radius);
 
 	const duration = Math.floor(750 + 500 * Math.random());
