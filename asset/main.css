@@ -15,6 +15,7 @@ body  {
 figure {
 	text-align: center;
 	position: relative;
+	z-index: -1;
 }
 figure img {
 	filter: grayscale(.3);
